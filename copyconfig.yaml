@@ -14,15 +14,3 @@
       copy:
         content: "{{ switch_config_output.stdout }}"
         dest: "/tmp/switch_config.txt"
-
-- name: Copy the configuration from the switch to the Ubuntu server
-  hosts: ubuntu_server
-  gather_facts: no
-  become: yes
-
-  tasks:
-    - name: Fetch the switch configuration from local to the Ubuntu server
-      fetch:
-        src: /tmp/switch_config.txt
-        dest: /path/to/your/ubuntu/server/configs/
-        flat: yes
