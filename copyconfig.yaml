@@ -1,10 +1,14 @@
-- name: Backup Nexus Cisco
+- name: Run show running-config on Cisco Nexus Switch
   hosts: nexus
-
+  gather_facts: no
+  connection: network_cli
   tasks:
-    - name: Backup Nexus Cisco
-      cisco.nxos.nxos_config:
-        backup: true
-        backup_options:
-          filename: "backup-1.txt"
-          dirpath: ./
+    - name: Show running-config on Nexus switch
+      cisco.nxos.nxos_command:
+        commands:
+          - show running-config
+      register: result
+
+    - name: Display the result
+      debug:
+        var: result
