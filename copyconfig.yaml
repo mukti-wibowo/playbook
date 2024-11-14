@@ -7,4 +7,4 @@
         backup: true
         backup_options:
           filename: "backup-1.txt"
-          dirpath: /root/snap/semaphore/common/repositories/repository_3_3
+          dirpath: ./
