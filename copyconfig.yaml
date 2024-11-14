@@ -1,7 +1,28 @@
-- name: Backup switch running config to FTP server using SSH
+- name: Copy configuration from switch to Ubuntu server
   hosts: switches
-  connection: ssh      # Menggunakan koneksi SSH
+  gather_facts: no
+  become: no
+
   tasks:
-    - name: Copy running-config to FTP server
-      command: "copy running-config ftp://svra:P%40ssw0rdapl2024.%21@10.12.10.190"
-      register: result
+    - name: Run command to export the switch configuration
+      command: show running-config
+      register: switch_config_output
+      # Pastikan perintah ini sesuai dengan yang berlaku di switch Anda
+      # Misalnya, jika menggunakan Cisco, perintahnya bisa berbeda seperti 'copy running-config tftp://<server_ip>/config.txt'
+
+    - name: Save the output of the command to a local file
+      copy:
+        content: "{{ switch_config_output.stdout }}"
+        dest: "/tmp/switch_config.txt"
+
+- name: Copy the configuration from the switch to the Ubuntu server
+  hosts: ubuntu_server
+  gather_facts: no
+  become: yes
+
+  tasks:
+    - name: Fetch the switch configuration from local to the Ubuntu server
+      fetch:
+        src: /tmp/switch_config.txt
+        dest: /path/to/your/ubuntu/server/configs/
+        flat: yes
