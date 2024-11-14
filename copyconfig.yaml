@@ -1,5 +1,4 @@
-- name: Backup switch-config running config to FTP server
-  hosts: switches                 # Grup host atau host target
+- hosts: switches                 # Grup host atau host target
   become: no                      # Tidak memerlukan sudo untuk perangkat jaringan
   gather_facts: no                # Tidak perlu mengumpulkan fakta (facts) pada perangkat jaringan
   tasks:
