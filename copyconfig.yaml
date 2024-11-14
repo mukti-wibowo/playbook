@@ -8,7 +8,6 @@
         commands:
           - show running-config
       register: result
-
     - name: Display the result
       debug:
         var: result
