@@ -1,0 +1,9 @@
+- name: Backup switch-config running config to FTP server
+  hosts: switches                 # Grup host atau host target
+  become: no                      # Tidak memerlukan sudo untuk perangkat jaringan
+  gather_facts: no                # Tidak perlu mengumpulkan fakta (facts) pada perangkat jaringan
+  tasks:
+    - name: Copy running-config to FTP server
+      ansible.netcommon.cli_command:
+        command: "copy running-config ftp://svra@10.12.10.190"
+      register: result 
