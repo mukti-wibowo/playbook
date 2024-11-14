@@ -1,7 +1,7 @@
 - name: Backup switch running config to FTP server
   hosts: switches                # Grup host atau host target
   gather_facts: no               # Tidak perlu mengumpulkan fakta
-  connection: network_cli        # Menetapkan koneksi untuk perangkat jaringan
+  connection: ssh       # Menetapkan koneksi untuk perangkat jaringan
   tasks:
     - name: Copy running-config to FTP server
       ansible.netcommon.cli_command:
