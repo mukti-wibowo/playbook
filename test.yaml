@@ -1,17 +1,8 @@
-- name: Update Ubuntu Server
-  hosts: all
-  become: yes
+- hosts: all
+  become: true
+  
   tasks:
-    - name: Update apt package list
-      apt:
-        update_cache: yes
-
-    - name: Upgrade all packages to the latest version
-      apt:
-        upgrade: dist
-        autoremove: yes
-        cache_valid_time: 3600
-
-    - name: Autoremove unnecessary packages
-      apt:
-        autoremove: yes
+    - name: Reboot the machine
+      reboot:
+        reboot_timeout: 300
+        test_command: uptime
