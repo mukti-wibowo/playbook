@@ -2,6 +2,8 @@
   hosts: nexus
   gather_facts: no
   connection: network_cli
+  vars:
+    ansible_network_os: cisco.nxos.nxos
   tasks:
     - name: Show running-config on Nexus switch
       cisco.nxos.nxos_command:
