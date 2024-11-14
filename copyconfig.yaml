@@ -1,16 +1,10 @@
-- name: Copy configuration from switch to Ubuntu server
-  hosts: switches
-  gather_facts: no
-  become: no
+- name: Backup Nexus Cisco
+  hosts: nexus
 
   tasks:
-    - name: Run command to export the switch configuration
-      command: show running-config
-      register: switch_config_output
-      # Pastikan perintah ini sesuai dengan yang berlaku di switch Anda
-      # Misalnya, jika menggunakan Cisco, perintahnya bisa berbeda seperti 'copy running-config tftp://<server_ip>/config.txt'
-
-    - name: Save the output of the command to a local file
-      copy:
-        content: "{{ switch_config_output.stdout }}"
-        dest: "/tmp/switch_config.txt"
+    - name: Backup Nexus Cisco
+      cisco.nxos.nxos_config:
+        backup: true
+        backup_options:
+          filename: "backup-1.txt"
+          dirpath: /root/snap/semaphore/common/repositories/repository_3_3
